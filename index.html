@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Práctica de Apendicitis Aguda </title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS Config for Dark Mode -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950">
+
+    <div id="app-container" class="relative min-h-screen lg:flex">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 bg-slate-900 text-slate-300 w-80 p-6 flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out z-30 shadow-2xl">
+            <div class="flex-1 overflow-y-auto min-h-0 pr-2">
+                <h2 class="text-2xl font-bold text-center text-sky-400 border-b border-slate-700 pb-4 mb-6">Guía de Apendicitis Aguda</h2>
+                <ul id="module-list" class="space-y-2"></ul>
+            </div>
+            <div class="pt-4 border-t border-slate-700">
+                <button id="bibliography-button" class="w-full bg-slate-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition-all hover:bg-slate-600 active:scale-95 mb-2 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 16c1.255 0 2.443-.29 3.5-.804V4.804zM14.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 0114.5 16c1.255 0 2.443-.29 3.5-.804v-10A7.968 7.968 0 0014.5 4z" /></svg>
+                    Bibliografía
+                </button>
+                <button id="reset-button" class="w-full bg-red-600/90 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition-all hover:bg-red-600 active:scale-95 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7V9a1 1 0 01-2 0V3a1 1 0 011-1zm12 1a1 1 0 011 1v3.099A5.002 5.002 0 008.113 14.666 1 1 0 016.228 14A7.002 7.002 0 0115.898 7.534V5a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                    Reiniciar Progreso
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 p-4 sm:p-6 lg:p-8 transition-all duration-300">
+            <!-- Home button to return to learning path -->
+            <button id="home-button" class="hidden fixed top-4 left-4 bg-white dark:bg-slate-800 p-2 rounded-full shadow-lg z-40 text-slate-600 dark:text-slate-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+            </button>
+            
+            <!-- Hamburger button for mobile -->
+            <button id="menu-toggle" class="hidden lg:hidden fixed top-4 right-4 bg-white dark:bg-slate-800 p-2 rounded-full shadow-lg z-40 text-slate-600 dark:text-slate-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+
+            <div id="progress-container" class="w-full bg-slate-200 dark:bg-slate-700 rounded-full mb-8 shadow-inner">
+                <div id="progress-bar" class="bg-sky-500 text-xs font-medium text-white text-center p-1.5 leading-none rounded-full transition-all duration-500" style="width: 0%">0%</div>
+            </div>
+            <div id="module-display" class="transition-opacity duration-300">
+                <!-- El contenido del módulo se insertará aquí -->
+            </div>
+        </main>
+        
+        <div id="sidebar-overlay" class="hidden lg:hidden fixed inset-0 bg-black bg-opacity-60 z-20"></div>
+
+    </div>
+    
+    <!-- Reset Modal -->
+    <div id="reset-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 transition-opacity duration-300">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-8 max-w-sm w-full text-center transform scale-95 transition-transform duration-300">
+            <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">Confirmar Acción</h3>
+            <p class="text-slate-600 dark:text-slate-400 my-4">¿Estás seguro de que quieres borrar todo tu progreso? Esta acción no se puede deshacer.</p>
+            <div class="flex justify-center gap-4 mt-6">
+                <button id="cancel-reset" class="py-2 px-6 bg-slate-200 text-slate-800 font-semibold rounded-lg hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600 transition-colors">Cancelar</button>
+                <button id="confirm-reset" class="py-2 px-6 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bibliography Modal -->
+    <div id="bibliography-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 transition-opacity duration-300">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-8 max-w-3xl w-full text-left transform scale-95 transition-transform duration-300 relative">
+            <button id="close-bibliography-modal" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 border-b dark:border-slate-700 pb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 16c1.255 0 2.443-.29 3.5-.804V4.804zM14.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 0114.5 16c1.255 0 2.443-.29 3.5-.804v-10A7.968 7.968 0 0014.5 4z" /></svg>
+                Fuentes Bibliográficas
+            </h3>
+            <div id="bibliography-content" class="text-slate-600 dark:text-slate-400 my-4 space-y-3 max-h-[70vh] overflow-y-auto pr-4">
+                <!-- Bibliography will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Modal -->
+    <div id="summary-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 transition-opacity duration-300">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl p-8 max-w-4xl w-full text-left transform scale-95 transition-transform duration-300 relative">
+            <button id="close-summary-modal" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 id="summary-modal-title" class="text-2xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 border-b dark:border-slate-700 pb-4">
+                <!-- Title will be injected here -->
+            </h3>
+            <div id="summary-content" class="text-slate-700 dark:text-slate-300 my-4 space-y-4 max-h-[70vh] overflow-y-auto pr-4">
+                <!-- Summary will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="dark-mode-toggle" class="fixed bottom-4 right-4 bg-white dark:bg-slate-700 p-3 rounded-full shadow-lg z-50 text-slate-600 dark:text-yellow-300 transition-colors duration-300">
+        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+    </button>
+
+
+    <script>
+        const TOTAL_MODULES = 16;
+
+        // Main course summary content
+        const summaryContentHtml = `
+            <div class="space-y-6">
+                <div>
+                    <h4 class="text-lg font-bold text-slate-800 dark:text-slate-200">1. Diagnóstico: Un Proceso Dinámico y Estratificado</h4>
+                    <p>El diagnóstico de la apendicitis aguda es un algoritmo secuencial, no un evento único. Se inicia con una fuerte sospecha clínica apoyada por escalas de riesgo (Alvarado/AIR) que sirven para triaje. En pacientes de bajo riesgo, la reevaluación seriada es clave. En riesgo intermedio o alto, se sigue un enfoque de imagen escalonado: <strong>Ecografía</strong> como primera línea en niños y embarazadas, y <strong>TC de baja dosis</strong> en adultos con duda diagnóstica. Los biomarcadores como la <strong>PCR</strong> son más valiosos para predecir la severidad (perforación) que para el diagnóstico inicial.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-slate-800 dark:text-slate-200">2. Clasificación es Tratamiento: No Complicada vs. Complicada</h4>
+                    <p>La bifurcación más importante en el manejo es la diferenciación entre apendicitis no complicada y complicada (gangrena, perforación, absceso). Esta clasificación, usualmente hecha por imagen, dicta la urgencia y el enfoque terapéutico.</p>
+                       <ul class="list-disc list-inside space-y-2 mt-2 pl-4">
+                            <li><strong>No Complicada:</strong> El estándar de oro es la <strong>apendicectomía laparoscópica temprana</strong> (dentro de las 24h). El tratamiento no operatorio (NOM) con antibióticos es una opción viable en pacientes seleccionados y bien informados, pero requiere un seguimiento estricto y tiene una tasa de recurrencia no despreciable.</li>
+                            <li><strong>Complicada:</strong> El paradigma cambia a "controlar el foco y estabilizar al paciente".
+                                <ul class="list-disc list-inside space-y-1 mt-1 pl-6">
+                                    <li><strong>Con peritonitis difusa:</strong> Apendicectomía urgente tras una reanimación de sepsis agresiva.</li>
+                                    <li><strong>Con flemón o absceso contenido:</strong> El manejo inicial de elección es conservador con <strong>antibióticos IV y/o drenaje percutáneo</strong> del absceso. La apendicectomía de intervalo (diferida 6-8 semanas) se considera para prevenir recurrencias, aunque su necesidad se debate cada vez más.</li>
+                                </ul>
+                            </li>
+                       </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-slate-800 dark:text-slate-200">3. El Acto Quirúrgico: Laparoscopia como Estándar</h4>
+                    <p>La <strong>apendicectomía laparoscópica</strong> es superior a la abierta en la mayoría de los casos, ofreciendo menos dolor postoperatorio, menor tasa de infección de herida y una recuperación más rápida. El manejo del muñón apendicular (endoloop, grapadora) depende de la preferencia del cirujano y las condiciones de la base apendicular. En casos de una base muy friable o flemón que la involucra, puede ser necesaria una cequectomía parcial. La conversión a cirugía abierta no es un fracaso, sino una decisión prudente en casos de anatomía hostil o incapacidad para controlar el foco de forma segura.</p>
+                </div>
+                 <div>
+                    <h4 class="text-lg font-bold text-slate-800 dark:text-slate-200">4. Manejo Postoperatorio y Situaciones Especiales</h4>
+                    <p>El postoperatorio se rige por la clasificación intraoperatoria.</p>
+                       <ul class="list-disc list-inside space-y-2 mt-2 pl-4">
+                            <li><strong>No Complicada:</strong> Antibióticos postoperatorios generalmente no son necesarios. Alta precoz (incluso el mismo día) es factible.</li>
+                            <li><strong>Complicada:</strong> Se requiere un curso de antibióticos IV (generalmente 3-5 días), guiado por la evolución clínica y los marcadores inflamatorios. La principal complicación a vigilar es el <strong>absceso intraabdominal postoperatorio</strong>, sospechado ante fiebre persistente o íleo prolongado y confirmado por TC.</li>
+                            <li><strong>Poblaciones Especiales:</strong> En <strong>embarazadas</strong>, el manejo es quirúrgico urgente para minimizar el riesgo fetal. En <strong>ancianos e inmunocomprometidos</strong>, la presentación suele ser atípica y la progresión a perforación más rápida, exigiendo un umbral más bajo para la realización de imágenes y la intervención.</li>
+                       </ul>
+                </div>
+            </div>
+        `;
+        
+        // Academic content for modules 1-4 (new content)
+        const courseModules = [
+            {
+                id: 1,
+                displayNumber: 1,
+                title: "Módulo 1: Presentación Clásica y Diagnóstico Clínico",
+                summary: `Este módulo fundamental se centra en reconocer el cuadro clínico clásico de la apendicitis aguda. Aprenderás la importancia de la secuencia de los síntomas (dolor migratorio, anorexia, náuseas) y cómo realizar un examen físico dirigido para obtener la máxima información. Se introduce la escala de Alvarado como una herramienta de triaje inicial para objetivar la sospecha clínica y guiar los siguientes pasos de manera estructurada.`,
+                clinicalCase: `Un hombre de 19 años, sin antecedentes médicos, acude a urgencias por un dolor que comenzó hace 12 horas "alrededor del ombligo" y que ahora se ha localizado en la fosa ilíaca derecha (FID). No ha comido nada desde ayer por falta de apetito. Al examen, presenta febrícula (37.6°C) y dolor intenso a la palpación en el punto de McBurney, con defensa voluntaria y signo de rebote positivo. Sus laboratorios muestran leucocitos de 14,500/mm³ con 85% de neutrófilos.<br><br><strong>Pregunta clave:</strong> Calculando la puntuación de Alvarado para este paciente, ¿en qué categoría de riesgo se clasifica y cuál es el siguiente paso más apropiado según esta puntuación?`,
+                clinicalCaseAnswer: `El paciente presenta: Dolor migratorio (1), Anorexia (1), Náuseas (no especificado, 0), Dolor en FID (2), Rebote (1), Fiebre (1), Leucocitosis >10,000 (2), y Neutrofilia >75% (1). La puntuación total es de 9. Una puntuación de Alvarado de 9 se clasifica como de **alto riesgo** de apendicitis aguda. En un paciente joven con una presentación tan clásica y una puntuación de alto riesgo, el siguiente paso más apropiado es la **valoración por el servicio de cirugía general** para preparación quirúrgica, a menudo sin necesidad de estudios de imagen adicionales que solo retrasarían el tratamiento.`,
+                quiz: [
+                    {
+                        question: `¿Cuál de los siguientes síntomas es el más consistentemente asociado con la apendicitis aguda y tiene el mayor valor predictivo negativo (es decir, su ausencia hace el diagnóstico menos probable)?`,
+                        options: [
+                            `Fiebre alta (>39°C).`,
+                            `Vómitos biliosos.`,
+                            `Anorexia (pérdida de apetito).`,
+                            `Diarrea.`
+                        ],
+                        answer: 2,
+                        justification: `La anorexia es un síntoma clásico y muy frecuente. Se describe la cronología de "hamburguesa dolorosa": si un paciente con sospecha de apendicitis aceptaría comer su comida favorita, el diagnóstico se vuelve menos probable. Aunque no es universal, su ausencia debe hacer que el clínico reconsidere el diagnóstico. La fiebre alta y los vómitos biliosos sugieren una enfermedad más avanzada o un diagnóstico alternativo.`,
+                        source: `Di Saverio S, Podda M, De Simone B, et al. Diagnosis and treatment of acute appendicitis: 2020 update of the WSES Jerusalem guidelines. World J Emerg Surg. 2020;15(1):27. doi: 10.1186/s13017-020-00306-3.`
+                    },
+                    {
+                        question: `El signo de Rovsing se considera positivo cuando:`,
+                        options: [
+                            `Hay dolor en la fosa ilíaca derecha al presionar la fosa ilíaca izquierda.`,
+                            `Hay dolor al extender la cadera derecha contra resistencia.`,
+                            `Hay dolor al flexionar y rotar internamente la cadera derecha.`,
+                            `Hay un cese de la inspiración al palpar el hipocondrio derecho.`
+                        ],
+                        answer: 0,
+                        justification: `El signo de Rovsing se basa en el principio de irritación peritoneal referida. Al presionar en la fosa ilíaca izquierda, se distiende el marco colónico y se desplaza el gas, lo que estira el peritoneo inflamado en el lado derecho, causando dolor en el sitio de la apendicitis. Las otras opciones describen los signos del psoas, del obturador y de Murphy, respectivamente.`,
+                        source: `Humes DJ, Simpson J. Acute appendicitis. BMJ. 2006 Sep 9;333(7567):530-4. doi: 10.1136/bmj.38940.664363.AE.`
+                    },
+                    {
+                        question: `Un paciente tiene una puntuación de Alvarado de 4. ¿Cuál es la interpretación y manejo correctos?`,
+                        options: [
+                            `Alta probabilidad de apendicitis; llamar a cirugía.`,
+                            `Baja probabilidad; se puede dar de alta a casa con seguridad.`,
+                            `Probabilidad intermedia; el paciente debe ser hospitalizado para observación y posible reevaluación.`,
+                            `Diagnóstico descartado; buscar activamente otras causas.`
+                        ],
+                        answer: 2,
+                        justification: `La escala de Alvarado es una herramienta de estratificación. Una puntuación de 1-4 se considera de bajo riesgo. Si bien no descarta la apendicitis por completo, indica que el diagnóstico es poco probable. La conducta más segura no es el alta inmediata, sino un período de observación (4-6 horas) con reevaluación clínica y, a veces, repetición del hemograma. Si el paciente permanece sin cambios o mejora, se puede considerar el alta con instrucciones claras de reconsulta.`,
+                        source: `Kollar D, McCartan V, Bourke M, et al. The Alvarado score as a diagnostic tool for acute appendicitis in paediatric patients. J Paediatr Child Health. 2021;57(5):713-717. doi: 10.1111/jpc.15302.`
+                    },
+                    {
+                        question: `¿Qué representa la "desviación a la izquierda" en un hemograma de un paciente con sospecha de apendicitis?`,
+                        options: [
+                            `Un aumento en el número total de linfocitos.`,
+                            `La presencia de formas inmaduras de neutrófilos (como bandas) en la sangre periférica.`,
+                            `Una disminución en el recuento de plaquetas.`,
+                            `Un aumento en el número de glóbulos rojos.`
+                        ],
+                        answer: 1,
+                        justification: `La "desviación a la izquierda" o neutrofilia con bandemia indica una respuesta medular a una infección bacteriana aguda. La médula ósea, en su intento por combatir la infección, libera neutrófilos inmaduros (bandas) a la circulación. Es un signo de una respuesta inflamatoria robusta y apoya fuertemente la sospecha de un proceso infeccioso como la apendicitis.`,
+                        source: `Boonstra PA, van Veen RN, van der Meulen AM, et al. Diagnostic value of laboratory tests in predicting acute appendicitis in children. J Pediatr Surg. 2020;55(11):2344-2349. doi: 10.1016/j.jpedsurg.2020.02.016.`
+                    },
+                    {
+                        question: `(Metacognitiva) Como residente de primer año, evalúas a un paciente con dolor en FID. Tu primera inclinación es ordenar una TC de inmediato para "estar seguro". ¿Qué principio fundamental del diagnóstico estás pasando por alto?`,
+                        options: [
+                            `El principio de parsimonia (la explicación más simple es la más probable).`,
+                            `El principio de que la historia clínica y el examen físico deben preceder y guiar la selección de pruebas diagnósticas.`,
+                            `El principio ALARA (As Low As Reasonably Achievable) para la exposición a la radiación.`,
+                            `Tanto B como C.`
+                        ],
+                        answer: 3,
+                        justification: `El error aquí es usar la tecnología como un sustituto del razonamiento clínico. El proceso diagnóstico debe ser secuencial. La anamnesis y el examen físico te permiten formular una probabilidad pre-test. Basado en esa probabilidad, decides si necesitas una prueba y cuál es la más apropiada. Saltar directamente a la TC sin una evaluación clínica sólida es un mal uso de los recursos, expone innecesariamente al paciente a la radiación (Principio ALARA), e impide el desarrollo de tus propias habilidades clínicas.`,
+                        source: `Sartelli M, Baiocchi GL, Di Saverio S, et al. 2018 WSES/SIS-E consensus conference: recommendations for the management of complicated intra-abdominal infections. World J Emerg Surg. 2019;14:1. doi: 10.1186/s13017-018-0220-3.`
+                    }
+                ]
+            },
+            {
+                id: 2,
+                displayNumber: 2,
+                title: "Módulo 2: Diagnóstico Diferencial y Poblaciones Clave",
+                summary: `La apendicitis no ocurre en el vacío. Este módulo te enseñará a construir un diagnóstico diferencial robusto, especialmente en poblaciones donde el cuadro clínico se solapa con otras patologías. Se enfoca en el desafío diagnóstico en mujeres en edad fértil (diferenciando de patología ginecológica) y en niños pequeños (donde la gastroenteritis es un gran imitador). El objetivo es aprender a usar la historia clínica y pruebas simples para descartar o considerar otras posibilidades antes de proceder con imágenes avanzadas.`,
+                clinicalCase: `Una mujer de 22 años, sexualmente activa, se presenta con dolor en la parte baja del abdomen que predomina en el lado derecho, de 2 días de evolución. Refiere febrícula y náuseas. Su fecha de última menstruación fue hace 3 semanas. Al examen, tiene dolor a la palpación en FID, pero también presenta dolor a la movilización del cérvix. El hemograma muestra 12,000 leucocitos. Una prueba de embarazo en orina es negativa.<br><br><strong>Pregunta clave:</strong> Ante este cuadro, ¿cuál es el diagnóstico diferencial principal que compite con la apendicitis y qué estudio inicial es el más útil para distinguirlos?`,
+                clinicalCaseAnswer: `El diagnóstico diferencial principal es la **Enfermedad Pélvica Inflamatoria (EPI)** o un quiste ovárico complicado (ej. torsión). El dolor a la movilización cervical (conocido como "signo del candelabro") es muy sugestivo de patología ginecológica. Dado que la prueba de embarazo es negativa (descartando un ectópico), el estudio de imagen inicial más útil es un **ultrasonido pélvico (transvaginal y/o abdominal)**. Este estudio puede visualizar directamente el apéndice, los ovarios y las trompas de Falopio, permitiendo diferenciar entre apendicitis, un absceso tubo-ovárico, o un quiste ovárico, guiando así el tratamiento correcto.`,
+                quiz: [
+                    {
+                        question: `En un niño de 3 años con fiebre, vómitos y dolor abdominal difuso, ¿cuál es el diagnóstico diferencial más común y confuso con la apendicitis aguda?`,
+                        options: [
+                            `Invaginación intestinal.`,
+                            `Gastroenteritis viral.`,
+                            `Divertículo de Meckel.`,
+                            `Neumonía basal derecha.`
+                        ],
+                        answer: 1,
+                        justification: `La gastroenteritis es extremadamente común en niños pequeños y se presenta con síntomas muy similares (fiebre, vómitos, dolor abdominal). A diferencia de la apendicitis, en la gastroenteritis la diarrea suele ser un síntoma prominente, el dolor es más difuso y cólico, y el apetito puede estar conservado entre los episodios de vómito. La exploración física y la reevaluación seriada son claves para diferenciarlos.`,
+                        source: `Glass CC, Rangel SJ. Overview and diagnosis of acute appendicitis in children. Semin Pediatr Surg. 2022;31(1):151148. doi: 10.1016/j.sempedsurg.2022.151148.`
+                    },
+                    {
+                        question: `Un paciente de 75 años con dolor en FID y febrícula tiene en su TC un apéndice normal pero un engrosamiento de la pared del colon sigmoides con divertículos y cambios inflamatorios en la grasa circundante. ¿Cuál es el diagnóstico más probable?`,
+                        options: [
+                            `Cáncer de colon perforado.`,
+                            `Apendicitis crónica.`,
+                            `Diverticulitis sigmoidea aguda.`,
+                            `Colitis isquémica.`
+                        ],
+                        answer: 2,
+                        justification: `La diverticulitis aguda, especialmente del colon sigmoides, es muy común en pacientes mayores. Un asa de sigmoides redundante puede "caer" hacia la fosa ilíaca derecha, imitando clínicamente el dolor de la apendicitis. La TC es la herramienta clave para diferenciar estas dos condiciones, mostrando la inflamación centrada en el segmento colónico afectado y un apéndice de apariencia normal.`,
+                        source: `Sartelli M, Coccolini F, Kluger Y, et al. WSES/GAIS/SIS-E/WSIS/AAST global clinical pathways for patients with intra-abdominal infections. World J Emerg Surg. 2021;16(1):49. doi: 10.1186/s13017-021-00387-y.`
+                    },
+                    {
+                        question: `¿Por qué una prueba de embarazo en orina (hCG) es un paso absolutamente mandatorio en la evaluación de cualquier mujer en edad fértil con dolor abdominal bajo?`,
+                        options: [
+                            `Para descartar la posibilidad de un embarazo ectópico roto, una emergencia quirúrgica.`,
+                            `Porque el embarazo contraindica el uso de analgésicos.`,
+                            `Para determinar si se puede realizar una TC de forma segura.`,
+                            `Tanto A como C son razones importantes.`
+                        ],
+                        answer: 3,
+                        justification: `Ambas razones son críticas. Primero, un embarazo ectópico roto puede presentarse con dolor en FID y es una condición que pone en peligro la vida, requiriendo una intervención inmediata. Descartarlo es la prioridad número uno. Segundo, el resultado de la prueba de embarazo dicta la estrategia de imagen. Si es positiva, se debe evitar la TC por la radiación al feto, haciendo del ultrasonido o la RM las modalidades de elección. Por lo tanto, esta simple prueba es un punto de decisión fundamental en el algoritmo diagnóstico.`,
+                        source: `American College of Obstetricians and Gynecologists' Committee on Practice Bulletins—Gynecology. ACOG Practice Bulletin No. 191: Tubal Ectopic Pregnancy. Obstet Gynecol. 2018;131(3):e91-e103. doi: 10.1097/AOG.0000000000002539.`
+                    },
+                    {
+                        question: `Un paciente presenta dolor en FID. Un análisis de orina muestra piuria (leucocitos en orina) y hematuria microscópica. ¿Qué condición del tracto urinario es un importante diagnóstico diferencial de la apendicitis?`,
+                        options: [
+                            `Pielonefritis.`,
+                            `Cistitis simple.`,
+                            `Ureterolitiasis (cálculo ureteral).`,
+                            `Torsión testicular.`
+                        ],
+                        answer: 2,
+                        justification: `Un cálculo que viaja por el uréter derecho puede causar un dolor agudo y cólico que se irradia a la fosa ilíaca derecha, imitando a la apendicitis. La irritación del uréter a menudo causa hematuria (sangre en la orina). Es importante recordar que una apendicitis con el apéndice inflamado cerca del uréter también puede causar piuria o hematuria (hallazgos "contaminados"), pero la sospecha de un cálculo debe ser alta, especialmente si el dolor es de tipo cólico.`,
+                        source: `Teichman JM. Clinical practice. Acute renal colic from ureteral calculus. N Engl J Med. 2004 Feb 26;350(7):684-93. doi: 10.1056/NEJMcp030813.`
+                    },
+                    {
+                        question: `(Metacognitiva) Al evaluar a una mujer joven con dolor en FID, te enfocas tanto en la apendicitis que olvidas preguntar sobre su historia ginecológica. ¿Qué sesgo cognitivo está operando y cómo se puede prevenir?`,
+                        options: [
+                            `Sesgo de anclaje, donde te fijas en el primer diagnóstico que te viene a la mente.`,
+                            `Sesgo de disponibilidad, porque has visto muchos casos de apendicitis recientemente.`,
+                            `Sesgo de confirmación, donde solo buscas síntomas que confirmen tu sospecha inicial.`,
+                            `Todos los anteriores.`
+                        ],
+                        answer: 3,
+                        justification: `Este es un error clásico impulsado por una combinación de sesgos. La forma de prevenirlo es usar un enfoque sistemático y forzarse a construir un diagnóstico diferencial amplio desde el principio. Usar una lista de verificación mental (ej. "En una mujer joven con dolor en FID, debo considerar: Apendicitis, Ginecológico, Urinario") para cada paciente te obliga a hacer las preguntas pertinentes para cada categoría, incluso si tu sospecha principal es otra, combatiendo así la tendencia a anclar y buscar solo la confirmación.`,
+                        source: `Zhi M, Ding EL, The G, et al. The impact of cognitive biases on clinical decision-making: A systematic review. J Eval Clin Pract. 2021;27(4):947-961. doi: 10.1111/jep.13508.`
+                    }
+                ]
+            }
+        ];
+
+        // --- SCRIPT START ---
+
+        let userProgress = {};
+        let currentModuleId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            loadProgress();
+            renderModuleList();
+            renderBibliography();
+            
+            let lastModuleId = null;
+            try {
+                lastModuleId = localStorage.getItem('appendicitisLastModuleId');
+            } catch (e) {
+                console.error("Error fetching last module:", e);
+            }
+            displayModule(lastModuleId ? parseInt(lastModuleId) : null);
+
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            const resetButton = document.getElementById('reset-button');
+            const resetModal = document.getElementById('reset-modal');
+            const cancelReset = document.getElementById('cancel-reset');
+            const confirmReset = document.getElementById('confirm-reset');
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            const bibliographyButton = document.getElementById('bibliography-button');
+            const bibliographyModal = document.getElementById('bibliography-modal');
+            const closeBibliographyModal = document.getElementById('close-bibliography-modal');
+            const homeButton = document.getElementById('home-button');
+            
+            const summaryModal = document.getElementById('summary-modal');
+            const closeSummaryModal = document.getElementById('close-summary-modal');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+
+            resetButton.addEventListener('click', () => {
+                resetModal.classList.remove('hidden');
+                setTimeout(() => {
+                    resetModal.querySelector('div').classList.remove('scale-95');
+                }, 10);
+            });
+            cancelReset.addEventListener('click', () => {
+                resetModal.querySelector('div').classList.add('scale-95');
+                setTimeout(() => resetModal.classList.add('hidden'), 300);
+            });
+            confirmReset.addEventListener('click', resetProgress);
+            
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+                sidebarOverlay.classList.toggle('hidden');
+            });
+            sidebarOverlay.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            });
+
+            bibliographyButton.addEventListener('click', showBibliographyModal);
+            closeBibliographyModal.addEventListener('click', hideBibliographyModal);
+            bibliographyModal.addEventListener('click', (event) => {
+                if (event.target === bibliographyModal) {
+                    hideBibliographyModal();
+                }
+            });
+
+            closeSummaryModal.addEventListener('click', hideSummaryModal);
+            summaryModal.addEventListener('click', (event) => {
+                if (event.target === summaryModal) {
+                    hideSummaryModal();
+                }
+            });
+
+            homeButton.addEventListener('click', () => displayModule(null));
+        }
+        
+        function initializeProgress() {
+            userProgress = {};
+            for (let i = 1; i <= TOTAL_MODULES; i++) {
+                userProgress[i] = { completed: false, score: 0, answers: {} };
+            }
+        }
+        
+        function loadProgress() {
+            try {
+                const savedProgress = localStorage.getItem('appendicitisCourseProgress');
+                let loadedProgress = savedProgress ? JSON.parse(savedProgress) : {};
+                
+                // Ensure progress exists for all modules
+                for (let i = 1; i <= TOTAL_MODULES; i++) {
+                    if (!loadedProgress[i]) {
+                        loadedProgress[i] = { completed: false, score: 0, answers: {} };
+                    }
+                }
+                userProgress = loadedProgress;
+
+            } catch (e) {
+                console.error("Error loading progress:", e);
+                initializeProgress();
+            }
+            saveProgress();
+            updateProgressBar();
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem('appendicitisCourseProgress', JSON.stringify(userProgress));
+                if (currentModuleId) {
+                    localStorage.setItem('appendicitisLastModuleId', currentModuleId);
+                } else {
+                    localStorage.removeItem('appendicitisLastModuleId');
+                }
+            } catch (e) {
+                console.error("Error saving progress:", e);
+            }
+        }
+        
+        function resetProgress() {
+            try {
+                localStorage.removeItem('appendicitisCourseProgress');
+                localStorage.removeItem('appendicitisLastModuleId');
+            } catch (e) {
+                console.error("Error resetting progress:", e);
+            }
+            window.location.reload();
+        }
+
+        function renderModuleList() {
+            const list = document.getElementById('module-list');
+            list.innerHTML = '';
+            const fullModuleList = [
+                "Módulo 1: Presentación Clásica y Diagnóstico Clínico",
+                "Módulo 2: Diagnóstico Diferencial y Poblaciones Clave",
+                "Módulo 3: Fundamentos de la Imagenología Diagnóstica",
+                "Módulo 4: Preparación Preoperatoria y Antibióticos",
+                "Módulo 5: El Acto Quirúrgico: Fundamentos de la Apendicectomía",
+                "Módulo 6: Apendicitis Complicada: Perforación y Peritonitis",
+                "Módulo 7: Apendicitis Complicada: Flemón y Absceso",
+                "Módulo 8: Manejo Postoperatorio y Complicaciones Comunes",
+                "Módulo 9: Neoplasias Apendiculares: Una Introducción",
+                "Módulo 10: Apendicitis del Muñón y Hernias Raras",
+                "Módulo 11: Guías de Práctica Clínica: ¿Qué Debo Saber?",
+                "Módulo 12: Comunicación y Consentimiento Informado",
+                "Módulo 13: Protocolos de Recuperación Mejorada (ERAS)",
+                "Módulo 14: Mirando al Futuro: Tratamiento No Operatorio",
+                "Módulo 15: Apendicectomía Negativa",
+                "Módulo 16: Calidad y Seguridad: El Rol del Residente"
+            ];
+
+            for (let i = 1; i <= TOTAL_MODULES; i++) {
+                const module = courseModules.find(m => m.id === i);
+                const li = document.createElement('li');
+                
+                const progress = userProgress[i] || { completed: false };
+                const isCompleted = progress.completed;
+                const isActive = i === currentModuleId;
+                
+                const isDefined = !!module;
+
+                const baseClasses = 'p-3 rounded-lg cursor-pointer transition-all duration-200 flex items-center gap-3';
+                let stateClasses;
+                let iconHtml;
+                let titleText = fullModuleList[i - 1] || `Módulo ${i}`;
+
+                if (!isDefined) {
+                    stateClasses = 'bg-slate-800 text-slate-500 cursor-not-allowed';
+                    iconHtml = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-50 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>`;
+                } else {
+                    stateClasses = 'bg-slate-700 hover:bg-slate-600 hover:pl-4';
+                    iconHtml = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-70 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 16c1.255 0 2.443-.29 3.5-.804V4.804zM14.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 0114.5 16c1.255 0 2.443-.29 3.5-.804v-10A7.968 7.968 0 0014.5 4z" /></svg>`;
+                }
+
+                if (isCompleted) {
+                    stateClasses = 'bg-emerald-800/80 hover:bg-emerald-700/80 text-emerald-300';
+                    iconHtml = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-400 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`;
+                }
+                
+                if (isDefined && isActive) {
+                    stateClasses = 'bg-sky-600 font-bold text-white shadow-lg';
+                }
+
+                let summaryButtonHtml = '';
+                if (isCompleted) {
+                    summaryButtonHtml = `<button title="Ver resumen del módulo" onclick="event.stopPropagation(); showModuleSummary(${i});" class="p-1 text-slate-400 hover:text-white rounded-full hover:bg-slate-500 transition-colors flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
+                    </button>`;
+                }
+
+                li.className = `${baseClasses} ${stateClasses}`;
+                li.innerHTML = `<div class="flex items-center gap-3 flex-1 min-w-0">${iconHtml} <span class="truncate">${titleText}</span></div> ${summaryButtonHtml}`;
+
+                if (isDefined) {
+                    li.dataset.moduleId = i;
+                    li.onclick = () => {
+                        displayModule(i);
+                        if (window.innerWidth < 1024) {
+                            document.getElementById('sidebar').classList.add('-translate-x-full');
+                            document.getElementById('sidebar-overlay').classList.add('hidden');
+                        }
+                    };
+                }
+                list.appendChild(li);
+            }
+        }
+        
+        function displayWelcomeScreen() {
+            const displayArea = document.getElementById('module-display');
+            const firstUncompletedId = Object.keys(userProgress).sort((a,b) => a-b).find(id => userProgress[id] && !userProgress[id].completed);
+
+            const moduleTitles = [
+                "Módulo 1: Evaluación Inicial", "Módulo 2: Diagnóstico Diferencial", "Módulo 3: Imagenología", "Módulo 4: Preoperatorio",
+                "Módulo 5: Cirugía", "Módulo 6: Perforación", "Módulo 7: Flemón/Absceso", "Módulo 8: Postoperatorio",
+                "Módulo 9: Neoplasias", "Módulo 10: Casos Atípicos", "Módulo 11: Guías Clínicas", "Módulo 12: Medicolegal",
+                "Módulo 13: Protocolos ERAS", "Módulo 14: Innovación", "Módulo 15: Apendicectomía Negativa", "Módulo 16: Calidad"
+            ];
+
+            let pathHtml = '<div class="relative mt-12 pl-6 sm:pl-8">';
+            pathHtml += '<div class="absolute left-0 top-0 h-full w-1 bg-slate-200 dark:bg-slate-700 ml-[15px] rounded"></div>';
+
+            for (let i = 1; i <= TOTAL_MODULES; i++) {
+                const module = courseModules.find(m => m.id === i);
+                const progress = userProgress[i] || { completed: false };
+                const isCompleted = progress.completed;
+                const isNext = !isCompleted && i == firstUncompletedId;
+                const isDefined = !!module;
+
+                let nodeClasses = 'absolute left-0 top-6 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm border-4 transition-all duration-300';
+                let cardClasses = 'relative ml-12 p-5 rounded-xl shadow-lg border-l-4 transition-all duration-300';
+                let titleClasses = 'font-bold text-slate-800 text-lg';
+                let statusText = '';
+                let statusTextClasses = 'text-xs font-bold uppercase';
+                let nodeIcon = i;
+                let cardAction = '';
+                
+                let title = moduleTitles[i-1] || `Módulo ${i}`;
+
+                if (!isDefined) {
+                    nodeClasses += ' bg-slate-300 border-white dark:border-slate-800';
+                    cardClasses += ' bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700 cursor-not-allowed';
+                    titleClasses += ' text-slate-500 dark:text-slate-400';
+                    statusText = 'Próximamente';
+                    statusTextClasses += ' text-slate-400 dark:text-slate-500';
+                } else if (isCompleted) {
+                    nodeClasses += ' bg-emerald-500 border-white dark:border-slate-800';
+                    nodeIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>`;
+                    cardClasses += ' bg-white dark:bg-slate-800 border-emerald-500 cursor-pointer hover:shadow-xl hover:scale-[1.02]';
+                    titleClasses += ' dark:text-slate-200';
+                    statusText = 'Completado';
+                    statusTextClasses += ' text-emerald-600 dark:text-emerald-400';
+                    cardAction = `onclick="displayModule(${i})"`;
+                } else if (isNext) {
+                    nodeClasses += ' bg-sky-500 border-white dark:border-slate-800 animate-pulse';
+                    cardClasses += ' bg-sky-50 dark:bg-sky-900/20 border-sky-500 cursor-pointer hover:shadow-xl hover:scale-[1.02]';
+                    titleClasses += ' dark:text-slate-200';
+                    statusText = 'Siguiente Módulo';
+                    statusTextClasses += ' text-sky-600 dark:text-sky-400';
+                    cardAction = `onclick="displayModule(${i})"`;
+                } else { 
+                    nodeClasses += ' bg-slate-400 border-white dark:border-slate-800';
+                    cardClasses += ' bg-white dark:bg-slate-800 border-slate-400 dark:border-slate-700 cursor-pointer hover:shadow-xl hover:scale-[1.02]';
+                    titleClasses += ' dark:text-slate-200';
+                    statusText = 'Pendiente';
+                    statusTextClasses += ' text-slate-500 dark:text-slate-400';
+                    cardAction = `onclick="displayModule(${i})"`;
+                }
+                
+                pathHtml += `
+                    <div class="relative mb-10">
+                        <div class="${nodeClasses}">${nodeIcon}</div>
+                        <div class="${cardClasses}" ${cardAction}>
+                            <p class="${statusTextClasses}">${statusText}</p>
+                            <h3 class="${titleClasses}">${title}</h3>
+                        </div>
+                    </div>
+                `;
+            }
+            pathHtml += '</div>';
+
+            displayArea.innerHTML = `
+                <div class="bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-2xl shadow-xl">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-800 dark:text-slate-200 text-center">Ruta de Aprendizaje: Apendicitis Aguda </h2>
+                    <p class="text-slate-600 dark:text-slate-400 mt-3 max-w-2xl mx-auto text-center">Selecciona un módulo para comenzar o continúa donde lo dejaste. Tu progreso se guarda automáticamente.</p>
+                    <div class="mt-8 border-t dark:border-slate-700 pt-8">
+                        <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-slate-200 text-lg">Resumen del Curso</h4>
+                                <p class="text-slate-600 dark:text-slate-400">Consulta los conceptos clave en cualquier momento.</p>
+                            </div>
+                            <button onclick="showGeneralSummary()" class="bg-white dark:bg-slate-700 text-sky-700 dark:text-sky-400 font-semibold py-2 px-6 rounded-lg shadow-sm border border-slate-200 dark:border-slate-600 hover:bg-sky-50 dark:hover:bg-slate-600 transition-all active:scale-95 flex-shrink-0">
+                                Ver Síntesis Clave
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        ${pathHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+
+        function displayModule(moduleId) {
+            const homeButton = document.getElementById('home-button');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const menuToggle = document.getElementById('menu-toggle');
+
+            if (!document.getElementById('main-content')) return;
+            document.getElementById('main-content').scrollTop = 0;
+            
+            const displayArea = document.getElementById('module-display');
+            if (!displayArea) return;
+            displayArea.classList.add('opacity-0');
+
+            setTimeout(() => {
+                currentModuleId = moduleId ? parseInt(moduleId) : null;
+                saveProgress();
+
+                if (!currentModuleId) {
+                    homeButton.classList.add('hidden');
+                    menuToggle.classList.add('hidden');
+                    sidebar.classList.remove('lg:translate-x-0');
+                    mainContent.classList.remove('lg:ml-80');
+                    homeButton.classList.remove('lg:left-[21rem]');
+
+                    displayWelcomeScreen();
+                    renderModuleList(); 
+                    displayArea.classList.remove('opacity-0');
+                    return;
+                }
+            
+                homeButton.classList.remove('hidden');
+                menuToggle.classList.remove('hidden');
+                sidebar.classList.add('lg:translate-x-0');
+                mainContent.classList.add('lg:ml-80');
+                homeButton.classList.add('lg:left-[21rem]');
+                
+                const moduleData = courseModules.find(m => m.id === currentModuleId);
+                
+                if (!moduleData) {
+                    console.error("Module not found:", currentModuleId);
+                    displayModule(null);
+                    displayArea.classList.remove('opacity-0');
+                    return;
+                }
+                
+                if (userProgress[currentModuleId] && userProgress[currentModuleId].completed) {
+                    showCompletedModule(currentModuleId);
+                } else {
+                    showActiveModule(currentModuleId);
+                }
+
+                renderModuleList();
+                displayArea.classList.remove('opacity-0');
+            }, 200);
+        }
+
+        function showActiveModule(moduleId) {
+            const moduleData = courseModules.find(m => m.id === moduleId);
+            const displayArea = document.getElementById('module-display');
+
+            let quizHtml = `<form class="quiz-form space-y-6 mt-8" id="quiz-form-${moduleId}">`;
+            moduleData.quiz.forEach((q, index) => {
+                quizHtml += `<div class="question-block bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700" id="q-block-${moduleId}-${index}">
+                                    <p class="font-semibold text-slate-800 dark:text-slate-200 mb-4 text-base sm:text-lg">${index + 1}. ${q.question}</p>
+                                    <div class="space-y-3">`;
+                q.options.forEach((opt, optIndex) => {
+                    quizHtml += `<label class="flex items-center p-4 border-2 border-slate-200 dark:border-slate-600 rounded-lg cursor-pointer transition-all duration-200 hover:bg-sky-50 dark:hover:bg-sky-900/30 hover:border-sky-400 dark:hover:border-sky-500 has-[:checked]:bg-sky-100 dark:has-[:checked]:bg-sky-900/50 has-[:checked]:border-sky-500">
+                                           <input type="radio" name="q${index}" value="${optIndex}" class="h-5 w-5 text-sky-600 border-slate-300 focus:ring-sky-500 focus:ring-2">
+                                           <span class="ml-4 text-slate-700 dark:text-slate-300">${opt}</span>
+                                       </label>`;
+                });
+                quizHtml += `</div></div>`;
+            });
+            quizHtml += `<button type="button" class="submit-quiz-btn w-full sm:w-auto bg-sky-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all hover:bg-sky-700 active:scale-95 disabled:bg-slate-400 disabled:cursor-not-allowed" onclick="submitQuiz(${moduleId})">Validar Respuestas</button></form>`;
+
+            displayArea.innerHTML = `
+                <div class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-xl">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-200">${moduleData.title}</h2>
+                    <div class="mt-6">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-3">Caso Clínico</h3>
+                        <div class="case-study bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 dark:border-amber-400 p-5 rounded-r-lg text-amber-900 dark:text-amber-200 space-y-2">${moduleData.clinicalCase}</div>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">Test de Autoevaluación</h3>
+                        ${quizHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function showCompletedModule(moduleId) {
+            const moduleData = courseModules.find(m => m.id === parseInt(moduleId));
+            const progressData = userProgress[moduleId];
+            const displayArea = document.getElementById('module-display');
+            
+            const nextModuleId = parseInt(moduleId) + 1;
+            
+            let quizHtml = '<div class="quiz-form space-y-8 mt-6">';
+            moduleData.quiz.forEach((q, index) => {
+                const userAnswer = progressData.answers ? progressData.answers[index] : null;
+                const isCorrect = userAnswer === q.answer;
+                const sourceCitation = q.source;
+
+                let feedbackHtml = `<div class="question-block bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700">
+                                        <p class="font-semibold text-slate-800 dark:text-slate-200 mb-4 text-base sm:text-lg">${index + 1}. ${q.question}</p>
+                                        <div class="space-y-3">`;
+                
+                q.options.forEach((opt, optIndex) => {
+                    const isUserAnswer = optIndex === userAnswer;
+                    const isCorrectAnswer = optIndex === q.answer;
+                    
+                    let labelClasses = 'flex items-center justify-between p-4 border-2 rounded-lg';
+                    let icon = '';
+
+                    if (isCorrectAnswer) {
+                        labelClasses += ' bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500';
+                        if (isUserAnswer) icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`;
+                    } else if (isUserAnswer) {
+                        labelClasses += ' bg-red-50 dark:bg-red-900/30 border-red-500';
+                        icon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600 dark:text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>`;
+                    } else {
+                         labelClasses += ' border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/50 opacity-80';
+                    }
+
+                    feedbackHtml += `<div class="${labelClasses}">
+                                           <span class="text-slate-700 dark:text-slate-300">${opt}</span>
+                                           ${icon}
+                                       </div>`;
+                });
+                
+                const justificationClasses = `mt-4 p-4 rounded-lg border-l-4 ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500 text-emerald-900 dark:text-emerald-200' : 'bg-red-50 dark:bg-red-900/30 border-red-500 text-red-900 dark:text-red-200'}`;
+                const justificationHtml = `<div class="${justificationClasses}">
+                                               <p><strong class="font-bold">${isCorrect ? 'Correcto' : 'Incorrecto'}.</strong> ${q.justification}</p>
+                                               <p class="text-sm italic mt-2 opacity-80">Fuente: ${sourceCitation}</p>
+                                           </div>`;
+
+                feedbackHtml += `</div>${justificationHtml}</div>`;
+                quizHtml += feedbackHtml;
+            });
+            quizHtml += '</div>';
+
+            let nextModuleButton = '';
+            
+            if (nextModuleId <= TOTAL_MODULES) { 
+                nextModuleButton = `<button class="mt-10 w-full sm:w-auto bg-sky-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all hover:bg-sky-700 active:scale-95 text-lg" onclick="displayModule(${nextModuleId})">
+                    Continuar al Siguiente Módulo
+                </button>`;
+            } else {
+                 nextModuleButton = `<button class="mt-10 w-full sm:w-auto bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-all hover:bg-emerald-700 active:scale-95 text-lg" onclick="displayModule(null)">Volver a la Ruta de Aprendizaje</button>`;
+            }
+            
+            displayArea.innerHTML = `
+                <div class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-xl">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-slate-200">${moduleData.title} (Revisión)</h2>
+                    <div class="mt-6">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-3">Caso Clínico</h3>
+                        <div class="case-study bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 dark:border-amber-400 p-5 rounded-r-lg text-amber-900 dark:text-amber-200 space-y-2">${moduleData.clinicalCase}</div>
+                        ${moduleData.clinicalCaseAnswer ? `
+                        <div class="mt-4 bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 dark:border-green-500 p-5 rounded-r-lg text-green-900 dark:text-green-200">
+                            <h4 class="font-bold">Resolución de la Pregunta Clave:</h4>
+                            <p class="mt-2">${moduleData.clinicalCaseAnswer}</p>
+                        </div>
+                        ` : ''}
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mt-8">Resultados del Test</h3>
+                    ${quizHtml}
+                    <div class="text-center">
+                        ${nextModuleButton}
+                    </div>
+                </div>`;
+        }
+
+
+        function submitQuiz(moduleId) {
+            const moduleData = courseModules.find(m => m.id === moduleId);
+            const form = document.getElementById('quiz-form-' + moduleId);
+            let score = 0;
+            let userAnswers = {};
+
+            moduleData.quiz.forEach((q, index) => {
+                const selectedOption = form.querySelector(`input[name="q${index}"]:checked`);
+                if (selectedOption) {
+                    const answerIndex = parseInt(selectedOption.value);
+                    userAnswers[index] = answerIndex;
+                    if (answerIndex === q.answer) {
+                        score++;
+                    }
+                } else {
+                    userAnswers[index] = null;
+                }
+            });
+            
+            userProgress[moduleId].completed = true;
+            userProgress[moduleId].score = score;
+            userProgress[moduleId].answers = userAnswers;
+            
+            saveProgress();
+            updateProgressBar();
+            renderModuleList();
+            
+            showCompletedModule(moduleId);
+            
+            checkCourseCompletion();
+        }
+
+        function updateProgressBar() {
+            if (!userProgress || Object.keys(userProgress).length === 0) return;
+            let completedCount = 0;
+            for(let i=1; i <= TOTAL_MODULES; i++){
+                if(userProgress[i] && userProgress[i].completed){
+                    completedCount++;
+                }
+            }
+            const percentage = TOTAL_MODULES > 0 ? (completedCount / TOTAL_MODULES) * 100 : 0;
+            
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = Math.round(percentage) + '%';
+        }
+
+        function checkCourseCompletion() {
+            let completedCount = 0;
+            for (let i = 1; i <= TOTAL_MODULES; i++) {
+                 if(userProgress[i] && userProgress[i].completed){
+                    completedCount++;
+                }
+            }
+
+            if (completedCount === courseModules.length) { // Only show summary if all DEFINED modules are done
+                setTimeout(showFinalSummary, 1000);
+            }
+        }
+
+        function showFinalSummary() {
+            let totalScore = 0;
+            let totalQuestions = 0;
+            const fullModuleList = [
+                "Módulo 1: Presentación Clásica y Diagnóstico Clínico",
+                "Módulo 2: Diagnóstico Diferencial y Poblaciones Clave",
+                "Módulo 3: Fundamentos de la Imagenología Diagnóstica",
+                "Módulo 4: Preparación Preoperatoria y Antibióticos",
+                "Módulo 5: El Acto Quirúrgico: Fundamentos de la Apendicectomía",
+                "Módulo 6: Apendicitis Complicada: Perforación y Peritonitis",
+                "Módulo 7: Apendicitis Complicada: Flemón y Absceso",
+                "Módulo 8: Manejo Postoperatorio y Complicaciones Comunes",
+                "Módulo 9: Neoplasias Apendiculares: Una Introducción",
+                "Módulo 10: Apendicitis del Muñón y Hernias Raras",
+                "Módulo 11: Guías de Práctica Clínica: ¿Qué Debo Saber?",
+                "Módulo 12: Comunicación y Consentimiento Informado",
+                "Módulo 13: Protocolos de Recuperación Mejorada (ERAS)",
+                "Módulo 14: Mirando al Futuro: Tratamiento No Operatorio",
+                "Módulo 15: Apendicectomía Negativa",
+                "Módulo 16: Calidad y Seguridad: El Rol del Residente"
+            ];
+            
+            let moduleScoresHtml = '<div class="space-y-4 mt-6">';
+            
+            for(let i = 0; i < courseModules.length; i++) {
+                const module = courseModules[i];
+                const progress = userProgress[module.id];
+                if (progress && progress.completed) {
+                    let moduleTitle = fullModuleList[module.id - 1];
+                    let moduleTotalQuestions = module.quiz.length;
+                    
+                    const moduleScore = progress.score;
+                    totalScore += moduleScore;
+                    totalQuestions += moduleTotalQuestions;
+                    const percentage = moduleTotalQuestions > 0 ? (moduleScore / moduleTotalQuestions) * 100 : 0;
+
+                    moduleScoresHtml += `
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-base font-medium text-slate-700 dark:text-slate-300">${moduleTitle}</span>
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">${moduleScore} / ${moduleTotalQuestions}</span>
+                            </div>
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
+                                <div class="bg-sky-600 h-2.5 rounded-full" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+            };
+            moduleScoresHtml += '</div>';
+            
+            const finalPercentage = totalQuestions > 0 ? (totalScore / totalQuestions) * 100 : 0;
+            
+            const displayArea = document.getElementById('module-display');
+            displayArea.innerHTML = `
+                <div id="final-score-screen" class="bg-white dark:bg-slate-800 p-8 sm:p-12 rounded-2xl shadow-xl transform transition-all duration-500 scale-100 opacity-100">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-emerald-600 dark:text-emerald-400">¡Curso Completado!</h2>
+                    <p class="text-slate-600 dark:text-slate-400 mt-2">Has finalizado todos los módulos disponibles. Aquí está tu resumen de calificaciones.</p>
+                    <div class="text-left mt-8">
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200">Calificación por Módulo</h3>
+                        ${moduleScoresHtml}
+                    </div>
+                    <div class="mt-8 pt-6 border-t dark:border-slate-700">
+                         <p class="text-slate-700 dark:text-slate-300">Tu calificación final es:</p>
+                        <p id="score-value" class="text-5xl sm:text-7xl font-bold text-slate-800 dark:text-slate-200 mt-2">${Math.round(finalPercentage)}<span class="text-3xl text-slate-500 dark:text-slate-400"> / 100</span></p>
+                    </div>
+                </div>`;
+        }
+
+        // --- Modals & Helper Functions ---
+        function showGeneralSummary() {
+            const titleEl = document.getElementById('summary-modal-title');
+            const contentEl = document.getElementById('summary-content');
+            if (titleEl && contentEl) {
+                titleEl.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" /></svg>
+                    Síntesis Clave en Apendicitis Aguda
+                `;
+                contentEl.innerHTML = summaryContentHtml;
+            }
+            showSummaryModal();
+        }
+
+        function showModuleSummary(moduleId) {
+            const module = courseModules.find(m => m.id === moduleId);
+             if (!module || !module.summary) {
+                console.warn(`Summary for module ${moduleId} not found.`);
+                return;
+            }
+
+            const titleEl = document.getElementById('summary-modal-title');
+            const contentEl = document.getElementById('summary-content');
+            if (titleEl && contentEl) {
+                titleEl.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 16c1.255 0 2.443-.29 3.5-.804V4.804zM14.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 0114.5 16c1.255 0 2.443-.29 3.5-.804v-10A7.968 7.968 0 0014.5 4z" /></svg>
+                    Resumen: ${module.title}
+                `;
+                contentEl.innerHTML = `<p>${module.summary}</p>`;
+            }
+            showSummaryModal();
+        }
+
+        function showSummaryModal() {
+            const modal = document.getElementById('summary-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function hideSummaryModal() {
+            const modal = document.getElementById('summary-modal');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function showBibliographyModal() {
+            const modal = document.getElementById('bibliography-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function hideBibliographyModal() {
+            const modal = document.getElementById('bibliography-modal');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function renderBibliography() {
+            const bibliographyContent = document.getElementById('bibliography-content');
+            if (!bibliographyContent) return;
+
+            const allSources = [];
+            courseModules.forEach(module => {
+                if (module.quiz) {
+                    module.quiz.forEach(q => {
+                        if (q.source && !allSources.includes(q.source)) {
+                            allSources.push(q.source);
+                        }
+                    });
+                }
+            });
+            allSources.sort();
+            
+            bibliographyContent.innerHTML = '';
+            allSources.forEach(citation => {
+                const item = document.createElement('div');
+                item.className = 'bg-slate-100 dark:bg-slate-700 p-3 rounded-lg flex items-start gap-3 text-sm';
+                item.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-500 dark:text-slate-400 flex-shrink-0 mt-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 16c1.255 0 2.443-.29 3.5-.804V4.804zM14.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 0114.5 16c1.255 0 2.443-.29 3.5-.804v-10A7.968 7.968 0 0014.5 4z" />
+                    </svg>
+                    <span>${citation}</span>
+                `;
+                bibliographyContent.appendChild(item);
+            });
+        }
+
+        function loadTheme() {
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            // On first load, if theme is not set, default to light.
+            if (!localStorage.getItem('theme')) {
+                localStorage.setItem('theme', 'light');
+            }
+            
+            if (localStorage.theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                if (sunIcon) sunIcon.classList.add('hidden');
+                if (moonIcon) moonIcon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (sunIcon) sunIcon.classList.remove('hidden');
+                if (moonIcon) moonIcon.classList.add('hidden');
+            }
+        }
+
+        function toggleDarkMode() {
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            const isDark = document.documentElement.classList.toggle('dark');
+            if (isDark) {
+                localStorage.theme = 'dark';
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                localStorage.theme = 'light';
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
+
